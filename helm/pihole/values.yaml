@@ -1,0 +1,16 @@
+pihole:
+  DNS1: 1.1.1.1
+  DNS2: 1.0.0.1
+
+  dnsmasq:
+    customDnsEntries:
+      - address=/home.arpa/192.168.0.201
+
+  serviceDns:
+    type: LoadBalancer
+
+  ingress:
+    enabled: true
+    ingressClassName: traefik
+    hosts:
+      - pihole.home.arpa
