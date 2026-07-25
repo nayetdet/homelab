@@ -11,8 +11,12 @@ spec:
     targetRevision: "*"
     helm:
       parameters:
-        - name: config.override
+        - name: secret.enabled
+          value: "false"
+        - name: externalSecret.enabled
           value: "true"
+        - name: externalSecret.storeName
+          value: "vault"
   destination:
     server: https://kubernetes.default.svc
     namespace: mirro-world
