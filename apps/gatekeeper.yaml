@@ -23,6 +23,10 @@ spec:
           value: "true"
         - name: sftpgo.ui.ingress.hosts[0].host
           value: gatekeeper.home.arpa
+        - name: sftpgo.ui.ingress.hosts[0].paths[0].path
+          value: /
+        - name: sftpgo.ui.ingress.hosts[0].paths[0].pathType
+          value: Prefix
   destination:
     server: https://kubernetes.default.svc
     namespace: gatekeeper
