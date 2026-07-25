@@ -20,11 +20,18 @@ resource "vault_kubernetes_auth_backend_config" "kubernetes" {
   kubernetes_host = var.kubernetes_host
 }
 
-resource "vault_policy" "external_secrets" {
-  name = "external-secrets"
+resource "vault_mount" "kubernetes" {
+  path    = "kubernetes"
+  type    = "kv"
+  options = {
+    version = "2"
+  }
+}
 
+resource "vault_policy" "external_secrets" {
+  name   = "external-secrets"
   policy = <<-EOT
-    path "secret/data/*" {
+    path "kubernetes/data/*" {
       capabilities = ["read"]
     }
   EOT
