@@ -6,9 +6,9 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/nayetdet/mirro-world.git
-    targetRevision: main
-    path: k8s/mirro-world
+    repoURL: ghcr.io/nayetdet/charts
+    chart: mirro-world
+    targetRevision: "*"
   destination:
     server: https://kubernetes.default.svc
     namespace: mirro-world
