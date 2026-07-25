@@ -17,6 +17,10 @@ spec:
           value: "true"
         - name: externalSecret.storeName
           value: "vault"
+        - name: sftpgo.sftpd.enabled
+          value: "true"
+        - name: sftpgo.ui.ingress.hosts[0].host
+          value: gatekeeper.home.arpa
   destination:
     server: https://kubernetes.default.svc
     namespace: gatekeeper
@@ -26,4 +30,3 @@ spec:
       selfHeal: true
     syncOptions:
       - CreateNamespace=true
-
