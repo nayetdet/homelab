@@ -17,15 +17,15 @@ spec:
           value: "true"
         - name: externalSecret.storeName
           value: vault
-        - name: sftpgo.sftpd.enabled
+        - name: filebrowser.enabled
           value: "true"
-        - name: sftpgo.ui.ingress.enabled
+        - name: filebrowser.ingress.main.enabled
           value: "true"
-        - name: sftpgo.ui.ingress.hosts[0].host
+        - name: filebrowser.ingress.main.hosts[0].host
           value: gatekeeper.home.arpa
-        - name: sftpgo.ui.ingress.hosts[0].paths[0].path
+        - name: filebrowser.ingress.main.hosts[0].paths[0].path
           value: /
-        - name: sftpgo.ui.ingress.hosts[0].paths[0].pathType
+        - name: filebrowser.ingress.main.hosts[0].paths[0].pathType
           value: Prefix
   destination:
     server: https://kubernetes.default.svc
