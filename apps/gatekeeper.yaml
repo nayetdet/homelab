@@ -19,6 +19,8 @@ spec:
           value: vault
         - name: filebrowser.enabled
           value: "true"
+        - name: filebrowser.auth.enabled
+          value: "false"
         - name: filebrowser.ingress.main.enabled
           value: "true"
         - name: filebrowser.ingress.main.hosts[0].host
