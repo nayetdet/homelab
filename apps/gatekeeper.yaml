@@ -9,6 +9,14 @@ spec:
     repoURL: ghcr.io/nayetdet/charts
     chart: gatekeeper
     targetRevision: "*"
+    helm:
+      parameters:
+        - name: secret.enabled
+          value: "false"
+        - name: externalSecret.enabled
+          value: "true"
+        - name: externalSecret.storeName
+          value: "vault"
   destination:
     server: https://kubernetes.default.svc
     namespace: gatekeeper
@@ -18,3 +26,4 @@ spec:
       selfHeal: true
     syncOptions:
       - CreateNamespace=true
+
