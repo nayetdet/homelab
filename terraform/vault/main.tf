@@ -36,6 +36,5 @@ resource "vault_kubernetes_auth_backend_role" "external_secrets" {
   bound_service_account_names      = [var.external_secrets_service_account]
   bound_service_account_namespaces = [var.external_secrets_namespace]
   token_policies                   = [vault_policy.external_secrets.name]
-  audience                         = "vault"
 }
 
