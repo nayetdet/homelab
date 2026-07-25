@@ -1,0 +1,46 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: antimeta
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: ghcr.io/garapatech/charts
+    chart: antimeta
+    targetRevision: "*"
+    helm:
+      parameters:
+        - name: env.LINKEDIN_JOB_SEARCH_HOURS_OLD
+          value: "4"
+        - name: env.LINKEDIN_JOB_APPLICATION_MAX_STEPS
+          value: "3"
+        - name: env.LLM_MODEL
+          value: openai/gpt-5.4-nano
+        - name: secret.enabled
+          value: "false"
+        - name: externalSecret.enabled
+          value: "true"
+        - name: externalSecret.storeName
+          value: vault
+        - name: filebrowser.enabled
+          value: "true"
+        - name: filebrowser.auth.enabled
+          value: "false"
+        - name: filebrowser.ingress.main.enabled
+          value: "true"
+        - name: filebrowser.ingress.main.hosts[0].host
+          value: antimeta.home.arpa
+        - name: filebrowser.ingress.main.hosts[0].paths[0].path
+          value: /
+        - name: filebrowser.ingress.main.hosts[0].paths[0].pathType
+          value: Prefix
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: antimeta
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
