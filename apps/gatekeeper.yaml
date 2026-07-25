@@ -16,8 +16,10 @@ spec:
         - name: externalSecret.enabled
           value: "true"
         - name: externalSecret.storeName
-          value: "vault"
+          value: vault
         - name: sftpgo.sftpd.enabled
+          value: "true"
+        - name: sftpgo.ui.ingress.enabled
           value: "true"
         - name: sftpgo.ui.ingress.hosts[0].host
           value: gatekeeper.home.arpa
