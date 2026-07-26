@@ -1,6 +1,15 @@
 pihole:
+  maxUnavailable: 0
+
   DNS1: 1.1.1.1
   DNS2: 1.0.0.1
+
+  podDnsConfig:
+    enabled: true
+    policy: None
+    nameservers:
+      - 1.1.1.1
+      - 1.0.0.1
 
   dnsmasq:
     customDnsEntries:
@@ -8,6 +17,10 @@ pihole:
 
   serviceDns:
     type: LoadBalancer
+
+  persistentVolumeClaim:
+    enabled: true
+    size: 1Gi
 
   ingress:
     enabled: true
