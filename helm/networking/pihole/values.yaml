@@ -4,13 +4,6 @@ pihole:
   DNS1: 1.1.1.1
   DNS2: 1.0.0.1
 
-  podDnsConfig:
-    enabled: true
-    policy: None
-    nameservers:
-      - 1.1.1.1
-      - 1.0.0.1
-
   dnsmasq:
     customDnsEntries:
       - address=/home.arpa/192.168.0.201

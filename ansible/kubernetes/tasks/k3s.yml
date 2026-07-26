@@ -5,6 +5,16 @@
     state: present
     update_cache: true
 
+- name: Configure K3s Resolver
+  ansible.builtin.copy:
+    dest: /etc/rancher/k3s/config.yaml
+    content: |
+      resolv-conf: /run/systemd/resolve/resolv.conf
+    owner: root
+    group: root
+    mode: "0644"
+  notify: restart-k3s
+
 - name: Install K3s Server and Worker
   ansible.builtin.shell: |
     curl -sfL https://get.k3s.io | sh -s - server --write-kubeconfig-mode 0644
