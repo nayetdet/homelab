@@ -28,6 +28,7 @@
     dest: "{{ zsh_oh_my_zsh_dir }}"
     version: master
     depth: 1
+    force: true
   become_user: "{{ user }}"
 
 - name: Set Gentoo theme user color to yellow
