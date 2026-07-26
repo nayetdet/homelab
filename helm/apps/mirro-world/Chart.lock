@@ -1,0 +1,6 @@
+dependencies:
+- name: mirro-world
+  repository: oci://ghcr.io/nayetdet/charts
+  version: 0.1.1
+digest: sha256:3291e5f677a504ba28efbd040d630eec22a4f956f561779e065685f8963f5db1
+generated: "2026-07-26T13:39:30.025118564-03:00"

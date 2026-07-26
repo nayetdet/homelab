@@ -1,23 +1,19 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: vault
+  name: voltswitch
   namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "0"
 spec:
   project: default
   source:
     repoURL: https://github.com/nayetdet/homelab.git
     targetRevision: main
-    path: helm/vault
+    path: helm/apps/voltswitch
   destination:
     server: https://kubernetes.default.svc
-    namespace: vault
-  ignoreDifferences:
-    - group: admissionregistration.k8s.io
-      kind: MutatingWebhookConfiguration
-      name: vault-agent-injector-cfg
-      jqPathExpressions:
-        - .webhooks[].clientConfig.caBundle
+    namespace: voltswitch
   syncPolicy:
     automated:
       prune: true

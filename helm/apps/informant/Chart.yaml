@@ -1,0 +1,9 @@
+apiVersion: v2
+name: informant
+description: Local configuration wrapper for the Informant chart
+type: application
+version: 0.1.0
+dependencies:
+  - name: informant
+    version: "*"
+    repository: oci://ghcr.io/nayetdet/charts

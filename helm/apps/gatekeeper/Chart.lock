@@ -1,0 +1,6 @@
+dependencies:
+- name: gatekeeper
+  repository: oci://ghcr.io/nayetdet/charts
+  version: 0.1.3
+digest: sha256:7a9c553c37c3052fbf27e43b8e6a96367c9a1b81b4f4637dac05f790b927edc1
+generated: "2026-07-26T13:39:26.691788585-03:00"

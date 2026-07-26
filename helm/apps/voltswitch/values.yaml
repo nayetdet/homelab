@@ -1,0 +1,15 @@
+voltswitch-api:
+  shutdownCommand: 'ssh root@192.168.0.200 "shutdown -h now"'
+  secret:
+    enabled: false
+
+  externalSecret:
+    enabled: true
+    storeName: vault
+
+  ingress:
+    enabled: true
+    hosts:
+      - host: voltswitch.home.arpa
+        paths:
+          - path: /

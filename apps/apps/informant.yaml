@@ -3,20 +3,14 @@ kind: Application
 metadata:
   name: informant
   namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "0"
 spec:
   project: default
   source:
-    repoURL: ghcr.io/nayetdet/charts
-    chart: informant
-    targetRevision: "*"
-    helm:
-      parameters:
-        - name: secret.enabled
-          value: "false"
-        - name: externalSecret.enabled
-          value: "true"
-        - name: externalSecret.storeName
-          value: "vault"
+    repoURL: https://github.com/nayetdet/homelab.git
+    targetRevision: main
+    path: helm/apps/informant
   destination:
     server: https://kubernetes.default.svc
     namespace: informant

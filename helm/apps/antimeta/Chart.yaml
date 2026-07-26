@@ -1,0 +1,9 @@
+apiVersion: v2
+name: antimeta
+description: Local configuration wrapper for the Antimeta chart
+type: application
+version: 0.1.0
+dependencies:
+  - name: antimeta
+    version: "*"
+    repository: oci://ghcr.io/garapatech/charts

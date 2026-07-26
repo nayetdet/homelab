@@ -3,20 +3,14 @@ kind: Application
 metadata:
   name: mirro-world
   namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "0"
 spec:
   project: default
   source:
-    repoURL: ghcr.io/nayetdet/charts
-    chart: mirro-world
-    targetRevision: "*"
-    helm:
-      parameters:
-        - name: secret.enabled
-          value: "false"
-        - name: externalSecret.enabled
-          value: "true"
-        - name: externalSecret.storeName
-          value: "vault"
+    repoURL: https://github.com/nayetdet/homelab.git
+    targetRevision: main
+    path: helm/apps/mirro-world
   destination:
     server: https://kubernetes.default.svc
     namespace: mirro-world

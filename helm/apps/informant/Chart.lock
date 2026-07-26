@@ -1,0 +1,6 @@
+dependencies:
+- name: informant
+  repository: oci://ghcr.io/nayetdet/charts
+  version: 0.1.0
+digest: sha256:2a07faad7ef2c542748f447a0731df971fee2d8eae148d85640c7c9e4cb09a87
+generated: "2026-07-26T13:39:28.398798322-03:00"

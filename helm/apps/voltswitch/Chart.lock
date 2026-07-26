@@ -1,0 +1,6 @@
+dependencies:
+- name: voltswitch-api
+  repository: oci://ghcr.io/nayetdet/charts
+  version: 0.1.0
+digest: sha256:12a6f4b6548671ea31c265a7211ef3dda44a1c83626fe109834ce312a89fbe9b
+generated: "2026-07-26T13:39:31.648651461-03:00"

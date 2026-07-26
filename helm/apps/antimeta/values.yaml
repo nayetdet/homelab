@@ -1,0 +1,25 @@
+antimeta:
+  env:
+    LINKEDIN_JOB_SEARCH_HOURS_OLD: "4"
+    LINKEDIN_JOB_APPLICATION_MAX_STEPS: "3"
+    LLM_MODEL: openai/gpt-5.4-nano
+
+  secret:
+    enabled: false
+
+  externalSecret:
+    enabled: true
+    storeName: vault
+
+  filebrowser:
+    enabled: true
+    auth:
+      enabled: false
+    ingress:
+      main:
+        enabled: true
+        hosts:
+          - host: antimeta.home.arpa
+            paths:
+              - path: /
+                pathType: Prefix

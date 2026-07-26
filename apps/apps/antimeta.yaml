@@ -1,21 +1,22 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: external-secrets
+  name: antimeta
   namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "0"
 spec:
   project: default
   source:
     repoURL: https://github.com/nayetdet/homelab.git
     targetRevision: main
-    path: helm/external-secrets
+    path: helm/apps/antimeta
   destination:
     server: https://kubernetes.default.svc
-    namespace: external-secrets
+    namespace: antimeta
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
     syncOptions:
       - CreateNamespace=true
-      - ServerSideApply=true

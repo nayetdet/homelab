@@ -1,0 +1,9 @@
+apiVersion: v2
+name: voltswitch
+description: Local configuration wrapper for the Voltswitch API chart
+type: application
+version: 0.1.0
+dependencies:
+  - name: voltswitch-api
+    version: "*"
+    repository: oci://ghcr.io/nayetdet/charts

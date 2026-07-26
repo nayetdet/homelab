@@ -1,0 +1,7 @@
+informant:
+  secret:
+    enabled: false
+
+  externalSecret:
+    enabled: true
+    storeName: vault
