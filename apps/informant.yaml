@@ -1,0 +1,28 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: informant
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: ghcr.io/nayetdet/charts
+    chart: informant
+    targetRevision: "*"
+    helm:
+      parameters:
+        - name: secret.enabled
+          value: "false"
+        - name: externalSecret.enabled
+          value: "true"
+        - name: externalSecret.storeName
+          value: "vault"
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: informant
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
