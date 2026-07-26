@@ -13,14 +13,6 @@
     group: root
     mode: "0755"
 
-- name: Configure Host Resolver for K3s
-  ansible.builtin.file:
-    src: /run/systemd/resolve/resolv.conf
-    dest: /etc/resolv.conf
-    state: link
-    force: true
-  notify: restart-k3s
-
 - name: Configure K3s Resolver
   ansible.builtin.copy:
     dest: /etc/rancher/k3s/config.yaml
