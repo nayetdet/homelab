@@ -1,0 +1,6 @@
+---
+- name: Install Fastfetch
+  ansible.builtin.apt:
+    name: fastfetch
+    state: present
+    update_cache: true

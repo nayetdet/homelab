@@ -1,0 +1,19 @@
+---
+- name: Enable and start SSH
+  ansible.builtin.service:
+    name: ssh
+    state: started
+    enabled: yes
+
+- name: Harden SSH configuration
+  ansible.builtin.copy:
+    dest: /etc/ssh/sshd_config.d/99-hardening.conf
+    owner: root
+    group: root
+    mode: "0644"
+    content: |
+      PasswordAuthentication no
+      PermitRootLogin no
+      PubkeyAuthentication yes
+      X11Forwarding no
+  notify: Restart SSH
