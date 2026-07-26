@@ -1,0 +1,36 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: voltswitch-api
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: ghcr.io/nayetdet/charts
+    chart: voltswitch-api
+    targetRevision: "*"
+    helm:
+      parameters:
+        - name: shutdownCommand
+          value: 'ssh root@192.168.0.200 "shutdown -h now"'
+        - name: secret.enabled
+          value: "false"
+        - name: externalSecret.enabled
+          value: "true"
+        - name: externalSecret.storeName
+          value: vault
+        - name: ingress.enabled
+          value: "true"
+        - name: ingress.hosts[0].host
+          value: voltswitch.home.arpa
+        - name: ingress.hosts[0].paths[0].path
+          value: /
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: voltswitch-api
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
