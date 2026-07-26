@@ -5,6 +5,14 @@
     state: present
     update_cache: true
 
+- name: Ensure K3s Configuration Directory Exists
+  ansible.builtin.file:
+    path: /etc/rancher/k3s
+    state: directory
+    owner: root
+    group: root
+    mode: "0755"
+
 - name: Configure K3s Resolver
   ansible.builtin.copy:
     dest: /etc/rancher/k3s/config.yaml
