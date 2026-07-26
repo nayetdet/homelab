@@ -29,12 +29,15 @@
     proto: tcp
     src: "{{ networking_internal_network }}"
 
-- name: Allow K3s API Traffic
+- name: Allow DNS Traffic
   community.general.ufw:
     rule: allow
-    port: "6443"
-    proto: tcp
+    port: "53"
+    proto: "{{ item }}"
     src: "{{ networking_internal_network }}"
+  loop:
+    - tcp
+    - udp
 
 - name: Allow HTTP and HTTPS Traffic for Ingress
   community.general.ufw:
@@ -45,6 +48,13 @@
   loop:
     - "80"
     - "443"
+
+- name: Allow K3s API Traffic
+  community.general.ufw:
+    rule: allow
+    port: "6443"
+    proto: tcp
+    src: "{{ networking_internal_network }}"
 
 - name: Ensure UFW Is Enabled
   community.general.ufw:
