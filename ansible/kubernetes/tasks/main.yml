@@ -1,3 +1,38 @@
-#SPDX-License-Identifier: MIT-0
 ---
-# tasks file for kubernetes
+- name: Install Curl
+  ansible.builtin.apt:
+    name: curl
+    state: present
+    update_cache: true
+
+- name: Install K3s Server and Worker
+  ansible.builtin.shell: |
+    curl -sfL https://get.k3s.io | sh -s - server --write-kubeconfig-mode 0644
+  args:
+    creates: /usr/local/bin/k3s
+  notify: restart-k3s
+
+- name: Ensure K3s Service Is Enabled and Running
+  ansible.builtin.systemd:
+    name: k3s
+    state: started
+    enabled: true
+
+- name: Create Kubectl Configuration Directory
+  ansible.builtin.file:
+    path: "/home/{{ ansible_user }}/.kube"
+    state: directory
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    mode: "0700"
+  when: ansible_user != 'root'
+
+- name: Configure Kubectl for the Ansible User
+  ansible.builtin.copy:
+    src: /etc/rancher/k3s/k3s.yaml
+    dest: "/home/{{ ansible_user }}/.kube/config"
+    remote_src: true
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    mode: "0600"
+  when: ansible_user != 'root'

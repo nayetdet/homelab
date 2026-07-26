@@ -5,22 +5,47 @@
     state: present
     update_cache: true
 
-- name: Set the default incoming policy
+- name: Disable IPv6 rules in UFW
+  ansible.builtin.lineinfile:
+    path: /etc/default/ufw
+    regexp: '^IPV6='
+    line: IPV6=no
+  notify: reload-ufw
+
+- name: Configure Default Incoming Policy
   community.general.ufw:
     direction: incoming
     policy: deny
 
-- name: Set the default outgoing policy
+- name: Configure Default Outgoing Policy
   community.general.ufw:
     direction: outgoing
     policy: allow
 
-- name: Allow SSH traffic
+- name: Allow SSH Traffic
   community.general.ufw:
     rule: allow
     port: "22"
     proto: tcp
+    src: "{{ networking_internal_network }}"
 
-- name: Enable the firewall
+- name: Allow K3s API Traffic
+  community.general.ufw:
+    rule: allow
+    port: "6443"
+    proto: tcp
+    src: "{{ networking_internal_network }}"
+
+- name: Allow HTTP and HTTPS Traffic for Ingress
+  community.general.ufw:
+    rule: allow
+    port: "{{ item }}"
+    proto: tcp
+    src: "{{ networking_internal_network }}"
+  loop:
+    - "80"
+    - "443"
+
+- name: Ensure UFW Is Enabled
   community.general.ufw:
     state: enabled

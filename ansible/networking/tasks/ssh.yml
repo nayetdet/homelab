@@ -1,11 +1,11 @@
 ---
-- name: Enable and start SSH
+- name: Ensure SSH Service Is Enabled and Running
   ansible.builtin.service:
     name: ssh
     state: started
     enabled: yes
 
-- name: Harden SSH configuration
+- name: Configure SSH Hardening
   ansible.builtin.copy:
     dest: /etc/ssh/sshd_config.d/99-hardening.conf
     owner: root

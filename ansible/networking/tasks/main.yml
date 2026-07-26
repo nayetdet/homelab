@@ -1,11 +1,11 @@
 #SPDX-License-Identifier: MIT-0
 ---
 # tasks file for networking
-- name: Include SSH tasks
+- name: Include SSH Tasks
   ansible.builtin.import_tasks: ssh.yml
 
-- name: Include Fail2ban tasks
+- name: Include Fail2ban Tasks
   ansible.builtin.import_tasks: fail2ban.yml
 
-- name: Include Firewall tasks
+- name: Include Firewall Tasks
   ansible.builtin.import_tasks: firewall.yml

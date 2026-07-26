@@ -1,5 +1,5 @@
 ---
-- name: Install Zsh dependencies
+- name: Install Zsh Dependencies
   ansible.builtin.apt:
     name:
       - git
@@ -7,17 +7,17 @@
     state: present
     update_cache: true
 
-- name: Resolve the user's home directory
+- name: Resolve User Home Directory
   ansible.builtin.getent:
     database: passwd
     key: "{{ user }}"
 
-- name: Set Zsh configuration paths
+- name: Set Zsh Configuration Paths
   ansible.builtin.set_fact:
     zsh_home: "{{ ansible_facts['getent_passwd'][user][4] }}"
     zsh_oh_my_zsh_dir: "{{ ansible_facts['getent_passwd'][user][4] }}/.oh-my-zsh"
 
-- name: Check for an existing Zsh configuration
+- name: Check for Existing Zsh Configuration
   ansible.builtin.stat:
     path: "{{ zsh_home }}/.zshrc"
   register: zshrc
@@ -30,7 +30,7 @@
     depth: 1
   become_user: "{{ user }}"
 
-- name: Install zsh-completions
+- name: Install Zsh Completions
   ansible.builtin.git:
     repo: https://github.com/zsh-users/zsh-completions.git
     dest: "{{ zsh_oh_my_zsh_dir }}/custom/plugins/zsh-completions"
@@ -38,7 +38,7 @@
     depth: 1
   become_user: "{{ user }}"
 
-- name: Install zsh-autosuggestions
+- name: Install Zsh Autosuggestions
   ansible.builtin.git:
     repo: https://github.com/zsh-users/zsh-autosuggestions.git
     dest: "{{ zsh_oh_my_zsh_dir }}/custom/plugins/zsh-autosuggestions"
@@ -46,7 +46,7 @@
     depth: 1
   become_user: "{{ user }}"
 
-- name: Install zsh-syntax-highlighting
+- name: Install Zsh Syntax Highlighting
   ansible.builtin.git:
     repo: https://github.com/zsh-users/zsh-syntax-highlighting.git
     dest: "{{ zsh_oh_my_zsh_dir }}/custom/plugins/zsh-syntax-highlighting"
@@ -54,7 +54,7 @@
     depth: 1
   become_user: "{{ user }}"
 
-- name: Configure .zshrc
+- name: Configure Zshrc
   ansible.builtin.copy:
     dest: "{{ zsh_home }}/.zshrc"
     content: |
@@ -69,7 +69,7 @@
     mode: "0644"
   when: not zshrc.stat.exists
 
-- name: Set Zsh as the default shell
+- name: Set Zsh as Default Shell
   ansible.builtin.user:
     name: "{{ user }}"
     shell: /usr/bin/zsh
