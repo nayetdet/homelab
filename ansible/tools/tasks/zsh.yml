@@ -30,6 +30,13 @@
     depth: 1
   become_user: "{{ user }}"
 
+- name: Set Gentoo theme user color to yellow
+  ansible.builtin.replace:
+    path: "{{ zsh_oh_my_zsh_dir }}/themes/gentoo.zsh-theme"
+    regexp: "%F\\{green\\}%n@"
+    replace: "%F{yellow}%n@"
+  become_user: "{{ user }}"
+
 - name: Install Zsh Completions
   ansible.builtin.git:
     repo: https://github.com/zsh-users/zsh-completions.git
