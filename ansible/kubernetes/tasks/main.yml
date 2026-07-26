@@ -10,6 +10,10 @@
     curl -sfL https://get.k3s.io | sh -s - server --write-kubeconfig-mode 0644
   args:
     creates: /usr/local/bin/k3s
+  register: k3s_install
+  retries: 3
+  delay: 10
+  until: k3s_install.rc == 0
   notify: restart-k3s
 
 - name: Ensure K3s Service Is Enabled and Running
