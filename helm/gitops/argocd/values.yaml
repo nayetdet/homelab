@@ -8,3 +8,14 @@ argo-cd:
       enabled: true
       ingressClassName: traefik
       hostname: argocd.home.arpa
+      annotations:
+        traefik.ingress.kubernetes.io/router.entrypoints: websecure
+      tls: true
+
+    certificate:
+      enabled: true
+      domain: argocd.home.arpa
+      issuer:
+        group: cert-manager.io
+        kind: ClusterIssuer
+        name: home-ca
