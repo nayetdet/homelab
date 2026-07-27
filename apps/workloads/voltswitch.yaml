@@ -1,17 +1,19 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: argocd
+  name: voltswitch
   namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "0"
 spec:
   project: default
   source:
     repoURL: https://github.com/nayetdet/homelab.git
     targetRevision: main
-    path: helm/gitops/argocd
+    path: charts/workloads/voltswitch
   destination:
     server: https://kubernetes.default.svc
-    namespace: argocd
+    namespace: voltswitch
   syncPolicy:
     automated:
       prune: true

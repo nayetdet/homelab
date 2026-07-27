@@ -8,7 +8,7 @@ spec:
   source:
     repoURL: https://github.com/nayetdet/homelab.git
     targetRevision: main
-    path: helm/networking/pihole
+    path: charts/networking/pihole
   destination:
     server: https://kubernetes.default.svc
     namespace: pihole

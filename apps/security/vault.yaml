@@ -10,7 +10,7 @@ spec:
   source:
     repoURL: https://github.com/nayetdet/homelab.git
     targetRevision: main
-    path: helm/security/vault
+    path: charts/security/vault
   destination:
     server: https://kubernetes.default.svc
     namespace: vault

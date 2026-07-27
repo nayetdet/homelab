@@ -10,7 +10,7 @@ spec:
   source:
     repoURL: https://github.com/nayetdet/homelab.git
     targetRevision: main
-    path: helm/apps/antimeta
+    path: charts/workloads/antimeta
   destination:
     server: https://kubernetes.default.svc
     namespace: antimeta

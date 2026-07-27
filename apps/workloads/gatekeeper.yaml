@@ -10,7 +10,7 @@ spec:
   source:
     repoURL: https://github.com/nayetdet/homelab.git
     targetRevision: main
-    path: helm/apps/gatekeeper
+    path: charts/workloads/gatekeeper
   destination:
     server: https://kubernetes.default.svc
     namespace: gatekeeper
