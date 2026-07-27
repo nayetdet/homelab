@@ -14,24 +14,24 @@
 - name: Clone or update LazyVim starter configuration
   ansible.builtin.git:
     repo: https://github.com/LazyVim/starter.git
-    dest: "/home/{{ tools_user }}/.config/nvim"
+    dest: "/home/{{ ansible_user }}/.config/nvim"
     version: main
     depth: 1
-  become_user: "{{ tools_user }}"
+  become_user: "{{ ansible_user }}"
 
 - name: Configure Neovim line numbers
   ansible.builtin.copy:
-    dest: "/home/{{ tools_user }}/.config/nvim/lua/config/options.lua"
+    dest: "/home/{{ ansible_user }}/.config/nvim/lua/config/options.lua"
     content: |
       vim.opt.number = true
       vim.opt.relativenumber = false
-    owner: "{{ tools_user }}"
-    group: "{{ tools_user }}"
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
     mode: "0644"
 
 - name: Configure Neovim Carbonfox colorscheme
   ansible.builtin.copy:
-    dest: "/home/{{ tools_user }}/.config/nvim/lua/plugins/colorscheme.lua"
+    dest: "/home/{{ ansible_user }}/.config/nvim/lua/plugins/colorscheme.lua"
     content: |
       return {
         {
@@ -42,6 +42,6 @@
           end,
         },
       }
-    owner: "{{ tools_user }}"
-    group: "{{ tools_user }}"
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
     mode: "0644"

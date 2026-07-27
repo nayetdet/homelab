@@ -3,6 +3,3 @@
 
 # Retry files generated for failed Ansible playbook runs
 *.retry
-
-# Ansible inventory file
-inventory.ini

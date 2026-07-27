@@ -10,59 +10,59 @@
 - name: Clone or update Oh My Zsh
   ansible.builtin.git:
     repo: https://github.com/ohmyzsh/ohmyzsh.git
-    dest: "/home/{{ tools_user }}/.oh-my-zsh"
+    dest: "/home/{{ ansible_user }}/.oh-my-zsh"
     version: master
     depth: 1
-  become_user: "{{ tools_user }}"
+  become_user: "{{ ansible_user }}"
 
 - name: Customize the Zsh theme prompt color
   ansible.builtin.replace:
-    path: "/home/{{ tools_user }}/.oh-my-zsh/themes/{{ tools_zsh_theme }}.zsh-theme"
+    path: "/home/{{ ansible_user }}/.oh-my-zsh/themes/{{ tools_zsh_theme }}.zsh-theme"
     regexp: "%F\\{green\\}%n@"
     replace: "%F{yellow}%n@"
-  become_user: "{{ tools_user }}"
+  become_user: "{{ ansible_user }}"
 
 - name: Install Zsh Completions
   ansible.builtin.git:
     repo: https://github.com/zsh-users/zsh-completions.git
-    dest: "/home/{{ tools_user }}/.oh-my-zsh/custom/plugins/zsh-completions"
+    dest: "/home/{{ ansible_user }}/.oh-my-zsh/custom/plugins/zsh-completions"
     version: master
     depth: 1
-  become_user: "{{ tools_user }}"
+  become_user: "{{ ansible_user }}"
 
 - name: Install Zsh Autosuggestions
   ansible.builtin.git:
     repo: https://github.com/zsh-users/zsh-autosuggestions.git
-    dest: "/home/{{ tools_user }}/.oh-my-zsh/custom/plugins/zsh-autosuggestions"
+    dest: "/home/{{ ansible_user }}/.oh-my-zsh/custom/plugins/zsh-autosuggestions"
     version: master
     depth: 1
-  become_user: "{{ tools_user }}"
+  become_user: "{{ ansible_user }}"
 
 - name: Install Zsh Syntax Highlighting
   ansible.builtin.git:
     repo: https://github.com/zsh-users/zsh-syntax-highlighting.git
-    dest: "/home/{{ tools_user }}/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting"
+    dest: "/home/{{ ansible_user }}/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting"
     version: master
     depth: 1
-  become_user: "{{ tools_user }}"
+  become_user: "{{ ansible_user }}"
 
 - name: Configure Oh My Zsh in .zshrc
   ansible.builtin.blockinfile:
-    path: "/home/{{ tools_user }}/.zshrc"
+    path: "/home/{{ ansible_user }}/.zshrc"
     create: true
     marker: "# {mark} ANSIBLE MANAGED OH-MY-ZSH"
     content: |
-      export ZSH="/home/{{ tools_user }}/.oh-my-zsh"
+      export ZSH="/home/{{ ansible_user }}/.oh-my-zsh"
       ZSH_THEME="{{ tools_zsh_theme }}"
       zstyle ':omz:update' mode auto
       zstyle ':omz:update' frequency 7
       plugins=(git zsh-completions zsh-autosuggestions zsh-syntax-highlighting)
       source $ZSH/oh-my-zsh.sh
-    owner: "{{ tools_user }}"
-    group: "{{ tools_user }}"
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
     mode: "0644"
 
 - name: Set Zsh as the default shell
   ansible.builtin.user:
-    name: "{{ tools_user }}"
+    name: "{{ ansible_user }}"
     shell: /usr/bin/zsh

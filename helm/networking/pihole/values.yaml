@@ -1,6 +1,15 @@
 pihole:
   maxUnavailable: 0
 
+  hostNetwork: "false"
+
+  dnsHostPort:
+    enabled: true
+    port: 53
+
+  podDnsConfig:
+    enabled: false
+
   DNS1: 1.1.1.1
   DNS2: 1.0.0.1
 
@@ -9,7 +18,11 @@ pihole:
       - address=/home.arpa/192.168.0.201
 
   serviceDns:
-    type: LoadBalancer
+    type: ClusterIP
+    mixedService: true
+
+  serviceDhcp:
+    enabled: false
 
   persistentVolumeClaim:
     enabled: true

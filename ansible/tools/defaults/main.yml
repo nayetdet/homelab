@@ -1,5 +1,4 @@
 #SPDX-License-Identifier: MIT-0
 ---
 # defaults file for tools
-tools_user: "{{ ansible_user | default(ansible_facts['user_id']) }}"
 tools_zsh_theme: gentoo
