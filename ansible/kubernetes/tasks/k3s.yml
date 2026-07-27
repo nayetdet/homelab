@@ -4,6 +4,7 @@
     name: curl
     state: present
     update_cache: true
+    lock_timeout: 300
 
 - name: Ensure K3s Configuration Directory Exists
   ansible.builtin.file:
@@ -27,7 +28,7 @@
   ansible.builtin.shell: |
     curl -sfL https://get.k3s.io | sh -s - server --write-kubeconfig-mode 0644
   args:
-    creates: /usr/local/bin/k3s
+    creates: /etc/systemd/system/k3s.service
   register: k3s_install
   retries: 5
   delay: 10
@@ -39,6 +40,7 @@
     name: k3s
     state: started
     enabled: true
+    daemon_reload: true
 
 - name: Create Kubectl Configuration Directory
   ansible.builtin.file:
