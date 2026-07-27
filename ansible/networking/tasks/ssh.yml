@@ -16,4 +16,4 @@
       PermitRootLogin no
       PubkeyAuthentication yes
       X11Forwarding no
-  notify: restart-ssh
+  notify: Restart SSH

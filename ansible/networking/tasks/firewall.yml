@@ -10,7 +10,7 @@
     path: /etc/default/ufw
     regexp: '^IPV6='
     line: IPV6=no
-  notify: reload-ufw
+  notify: Reload UFW
 
 - name: Configure Default Incoming Policy
   community.general.ufw:

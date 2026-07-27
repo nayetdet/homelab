@@ -21,7 +21,7 @@
     owner: root
     group: root
     mode: "0644"
-  notify: restart-k3s
+  notify: Restart K3s
 
 - name: Install K3s Server and Worker
   ansible.builtin.shell: |
@@ -32,7 +32,7 @@
   retries: 3
   delay: 10
   until: k3s_install.rc == 0
-  notify: restart-k3s
+  notify: Restart K3s
 
 - name: Ensure K3s Service Is Enabled and Running
   ansible.builtin.systemd:

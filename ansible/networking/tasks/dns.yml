@@ -5,3 +5,22 @@
     dest: /etc/resolv.conf
     state: link
     force: true
+
+- name: Configure host DNS through Netplan
+  ansible.builtin.copy:
+    dest: /etc/netplan/99-local-dns.yaml
+    owner: root
+    group: root
+    mode: "0600"
+    content: |
+      network:
+        version: 2
+        ethernets:
+          {{ ansible_facts["default_ipv4"]["interface"] }}:
+            dhcp4: true
+            dhcp4-overrides:
+              use-dns: false
+            nameservers:
+              addresses:
+                - {{ ansible_facts["default_ipv4"]["address"] }}
+  notify: Apply Netplan
