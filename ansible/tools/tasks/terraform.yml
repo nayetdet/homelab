@@ -2,7 +2,6 @@
 - name: Install Terraform APT dependencies
   ansible.builtin.apt:
     name:
-      - curl
       - gpg
       - python3-debian
     state: present

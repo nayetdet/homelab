@@ -1,5 +1,5 @@
 ---
-- name: Install UFW
+- name: Install UFW firewall
   ansible.builtin.apt:
     name: ufw
     state: present
@@ -13,24 +13,24 @@
     line: IPV6=no
   notify: Reload UFW
 
-- name: Configure Default Incoming Policy
+- name: Set UFW default incoming policy
   community.general.ufw:
     direction: incoming
     policy: deny
 
-- name: Configure Default Outgoing Policy
+- name: Set UFW default outgoing policy
   community.general.ufw:
     direction: outgoing
     policy: allow
 
-- name: Allow SSH Traffic
+- name: Allow SSH from the internal network
   community.general.ufw:
     rule: allow
-    port: "22"
+    port: "{{ networking_ssh_port }}"
     proto: tcp
     src: "{{ networking_internal_network }}"
 
-- name: Allow DNS Traffic
+- name: Allow DNS from the internal network
   community.general.ufw:
     rule: allow
     port: "53"
@@ -40,7 +40,7 @@
     - tcp
     - udp
 
-- name: Allow HTTP and HTTPS Traffic for Ingress
+- name: Allow HTTP and HTTPS ingress
   community.general.ufw:
     rule: allow
     port: "{{ item }}"
@@ -50,13 +50,13 @@
     - "80"
     - "443"
 
-- name: Allow K3s API Traffic
+- name: Allow K3s API from the internal network
   community.general.ufw:
     rule: allow
-    port: "6443"
+    port: "{{ networking_k3s_api_port }}"
     proto: tcp
     src: "{{ networking_internal_network }}"
 
-- name: Ensure UFW Is Enabled
+- name: Enable UFW
   community.general.ufw:
     state: enabled

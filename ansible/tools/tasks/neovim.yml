@@ -1,5 +1,5 @@
 ---
-- name: Install Neovim Dependencies
+- name: Install Neovim and dependencies
   ansible.builtin.apt:
     name:
       - curl
@@ -11,43 +11,27 @@
     state: present
     update_cache: true
 
-- name: Resolve User Home Directory
-  ansible.builtin.getent:
-    database: passwd
-    key: "{{ user }}"
-
-- name: Set Neovim Configuration Path
-  ansible.builtin.set_fact:
-    neovim_config_dir: "{{ ansible_facts['getent_passwd'][user][4] }}/.config/nvim"
-
-- name: Check for Existing Neovim Configuration
-  ansible.builtin.stat:
-    path: "{{ neovim_config_dir }}"
-  register: neovim_config
-
-- name: Clone LazyVim Starter Configuration
+- name: Clone or update LazyVim starter configuration
   ansible.builtin.git:
     repo: https://github.com/LazyVim/starter.git
-    dest: "{{ neovim_config_dir }}"
+    dest: "/home/{{ tools_user }}/.config/nvim"
     version: main
     depth: 1
-  become_user: "{{ user }}"
-  when: not neovim_config.stat.exists
+  become_user: "{{ tools_user }}"
 
-- name: Configure Neovim Line Numbers
+- name: Configure Neovim line numbers
   ansible.builtin.copy:
-    dest: "{{ neovim_config_dir }}/lua/config/options.lua"
+    dest: "/home/{{ tools_user }}/.config/nvim/lua/config/options.lua"
     content: |
       vim.opt.number = true
       vim.opt.relativenumber = false
-    owner: "{{ user }}"
-    group: "{{ user }}"
+    owner: "{{ tools_user }}"
+    group: "{{ tools_user }}"
     mode: "0644"
-  when: not neovim_config.stat.exists
 
-- name: Configure Neovim Carbonfox Colorscheme
+- name: Configure Neovim Carbonfox colorscheme
   ansible.builtin.copy:
-    dest: "{{ neovim_config_dir }}/lua/plugins/colorscheme.lua"
+    dest: "/home/{{ tools_user }}/.config/nvim/lua/plugins/colorscheme.lua"
     content: |
       return {
         {
@@ -58,21 +42,6 @@
           end,
         },
       }
-    owner: "{{ user }}"
-    group: "{{ user }}"
+    owner: "{{ tools_user }}"
+    group: "{{ tools_user }}"
     mode: "0644"
-  when: not neovim_config.stat.exists
-
-- name: Remove Git Metadata
-  ansible.builtin.file:
-    path: "{{ neovim_config_dir }}/.git"
-    state: absent
-  when: not neovim_config.stat.exists
-
-- name: Set Neovim Configuration Ownership
-  ansible.builtin.file:
-    path: "{{ neovim_config_dir }}"
-    owner: "{{ user }}"
-    group: "{{ user }}"
-    recurse: true
-  when: not neovim_config.stat.exists

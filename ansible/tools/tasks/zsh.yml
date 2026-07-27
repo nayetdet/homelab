@@ -1,5 +1,5 @@
 ---
-- name: Install Zsh Dependencies
+- name: Install Zsh and Git
   ansible.builtin.apt:
     name:
       - git
@@ -7,77 +7,62 @@
     state: present
     update_cache: true
 
-- name: Resolve User Home Directory
-  ansible.builtin.getent:
-    database: passwd
-    key: "{{ user }}"
-
-- name: Set Zsh Configuration Paths
-  ansible.builtin.set_fact:
-    zsh_home: "{{ ansible_facts['getent_passwd'][user][4] }}"
-    zsh_oh_my_zsh_dir: "{{ ansible_facts['getent_passwd'][user][4] }}/.oh-my-zsh"
-
-- name: Check for Existing Zsh Configuration
-  ansible.builtin.stat:
-    path: "{{ zsh_home }}/.zshrc"
-  register: zshrc
-
-- name: Clone Oh My Zsh
+- name: Clone or update Oh My Zsh
   ansible.builtin.git:
     repo: https://github.com/ohmyzsh/ohmyzsh.git
-    dest: "{{ zsh_oh_my_zsh_dir }}"
+    dest: "/home/{{ tools_user }}/.oh-my-zsh"
     version: master
     depth: 1
-    force: true
-  become_user: "{{ user }}"
+  become_user: "{{ tools_user }}"
 
-- name: Set Gentoo theme user color to yellow
+- name: Customize the Zsh theme prompt color
   ansible.builtin.replace:
-    path: "{{ zsh_oh_my_zsh_dir }}/themes/gentoo.zsh-theme"
+    path: "/home/{{ tools_user }}/.oh-my-zsh/themes/{{ tools_zsh_theme }}.zsh-theme"
     regexp: "%F\\{green\\}%n@"
     replace: "%F{yellow}%n@"
-  become_user: "{{ user }}"
+  become_user: "{{ tools_user }}"
 
 - name: Install Zsh Completions
   ansible.builtin.git:
     repo: https://github.com/zsh-users/zsh-completions.git
-    dest: "{{ zsh_oh_my_zsh_dir }}/custom/plugins/zsh-completions"
+    dest: "/home/{{ tools_user }}/.oh-my-zsh/custom/plugins/zsh-completions"
     version: master
     depth: 1
-  become_user: "{{ user }}"
+  become_user: "{{ tools_user }}"
 
 - name: Install Zsh Autosuggestions
   ansible.builtin.git:
     repo: https://github.com/zsh-users/zsh-autosuggestions.git
-    dest: "{{ zsh_oh_my_zsh_dir }}/custom/plugins/zsh-autosuggestions"
+    dest: "/home/{{ tools_user }}/.oh-my-zsh/custom/plugins/zsh-autosuggestions"
     version: master
     depth: 1
-  become_user: "{{ user }}"
+  become_user: "{{ tools_user }}"
 
 - name: Install Zsh Syntax Highlighting
   ansible.builtin.git:
     repo: https://github.com/zsh-users/zsh-syntax-highlighting.git
-    dest: "{{ zsh_oh_my_zsh_dir }}/custom/plugins/zsh-syntax-highlighting"
+    dest: "/home/{{ tools_user }}/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting"
     version: master
     depth: 1
-  become_user: "{{ user }}"
+  become_user: "{{ tools_user }}"
 
-- name: Configure Zshrc
-  ansible.builtin.copy:
-    dest: "{{ zsh_home }}/.zshrc"
+- name: Configure Oh My Zsh in .zshrc
+  ansible.builtin.blockinfile:
+    path: "/home/{{ tools_user }}/.zshrc"
+    create: true
+    marker: "# {mark} ANSIBLE MANAGED OH-MY-ZSH"
     content: |
-      export ZSH="{{ zsh_oh_my_zsh_dir }}"
-      ZSH_THEME="gentoo"
+      export ZSH="/home/{{ tools_user }}/.oh-my-zsh"
+      ZSH_THEME="{{ tools_zsh_theme }}"
       zstyle ':omz:update' mode auto
       zstyle ':omz:update' frequency 7
       plugins=(git zsh-completions zsh-autosuggestions zsh-syntax-highlighting)
       source $ZSH/oh-my-zsh.sh
-    owner: "{{ user }}"
-    group: "{{ user }}"
+    owner: "{{ tools_user }}"
+    group: "{{ tools_user }}"
     mode: "0644"
-  when: not zshrc.stat.exists
 
-- name: Set Zsh as Default Shell
+- name: Set Zsh as the default shell
   ansible.builtin.user:
-    name: "{{ user }}"
+    name: "{{ tools_user }}"
     shell: /usr/bin/zsh

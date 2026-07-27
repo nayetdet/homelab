@@ -1,7 +1,40 @@
 ---
-- name: Keep systemd-resolved resolv.conf as /etc/resolv.conf
+- name: Install dnsmasq
+  ansible.builtin.apt:
+    name: dnsmasq
+    state: present
+    update_cache: true
+    lock_timeout: 300
+
+- name: Configure local split DNS domain
+  ansible.builtin.copy:
+    dest: /etc/dnsmasq.d/home-arpa.conf
+    owner: root
+    group: root
+    mode: "0644"
+    content: |
+      address=/{{ networking_split_dns_domain }}/{{ networking_split_dns_address }}
+      bind-interfaces
+      listen-address=127.0.0.1,{{ ansible_facts['default_ipv4']['address'] }}
+      resolv-file=/run/systemd/resolve/resolv.conf
+  notify: Restart dnsmasq
+
+- name: Remove systemd-resolved resolv.conf symlink
   ansible.builtin.file:
-    src: /run/systemd/resolve/resolv.conf
+    path: /etc/resolv.conf
+    state: absent
+
+- name: Use dnsmasq as the host resolver
+  ansible.builtin.copy:
     dest: /etc/resolv.conf
-    state: link
-    force: true
+    owner: root
+    group: root
+    mode: "0644"
+    content: |
+      nameserver 127.0.0.1
+
+- name: Ensure dnsmasq is enabled and running
+  ansible.builtin.service:
+    name: dnsmasq
+    state: started
+    enabled: true

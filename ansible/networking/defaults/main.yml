@@ -2,3 +2,7 @@
 ---
 # defaults file for networking
 networking_internal_network: 192.168.0.0/24
+networking_split_dns_domain: home.arpa
+networking_split_dns_address: "{{ ansible_facts['default_ipv4']['address'] }}"
+networking_ssh_port: 22
+networking_k3s_api_port: 6443

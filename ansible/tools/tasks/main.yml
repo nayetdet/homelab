@@ -1,17 +1,17 @@
 #SPDX-License-Identifier: MIT-0
 ---
 # tasks file for tools
-- name: Include Fastfetch Tasks
+- name: Install Fastfetch
   ansible.builtin.import_tasks: fastfetch.yml
 
-- name: Include Neovim Tasks
+- name: Configure Neovim
   ansible.builtin.import_tasks: neovim.yml
 
-- name: Include Terraform Tasks
+- name: Install Terraform
   ansible.builtin.import_tasks: terraform.yml
 
-- name: Include Tree Tasks
+- name: Install tree
   ansible.builtin.import_tasks: tree.yml
 
-- name: Include Zsh Tasks
+- name: Configure Zsh
   ansible.builtin.import_tasks: zsh.yml
