@@ -8,6 +8,11 @@ variable "vault_token" {
   sensitive = true
 }
 
+variable "vault_skip_tls_verify" {
+  type    = bool
+  default = true
+}
+
 variable "kubernetes_host" {
   type    = string
   default = "https://kubernetes.default.svc"

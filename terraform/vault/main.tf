@@ -7,8 +7,9 @@ terraform {
 }
 
 provider "vault" {
-  address = var.vault_address
-  token   = var.vault_token
+  address         = var.vault_address
+  token           = var.vault_token
+  skip_tls_verify = var.vault_skip_tls_verify
 }
 
 resource "vault_auth_backend" "kubernetes" {
@@ -21,8 +22,8 @@ resource "vault_kubernetes_auth_backend_config" "kubernetes" {
 }
 
 resource "vault_mount" "kubernetes" {
-  path    = "kubernetes"
-  type    = "kv"
+  path = "kubernetes"
+  type = "kv"
   options = {
     version = "2"
   }
@@ -44,4 +45,3 @@ resource "vault_kubernetes_auth_backend_role" "external_secrets" {
   bound_service_account_namespaces = [var.external_secrets_namespace]
   token_policies                   = [vault_policy.external_secrets.name]
 }
-
