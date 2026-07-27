@@ -1,0 +1,9 @@
+---
+- name: Install utility packages
+  ansible.builtin.apt:
+    name:
+      - build-essential
+      - tree
+    state: present
+    update_cache: true
+    lock_timeout: 300

@@ -1,6 +1,0 @@
----
-- name: Install Tree
-  ansible.builtin.apt:
-    name: tree
-    state: present
-    update_cache: true

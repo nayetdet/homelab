@@ -10,8 +10,8 @@
 - name: Install Terraform
   ansible.builtin.import_tasks: terraform.yml
 
-- name: Install tree
-  ansible.builtin.import_tasks: tree.yml
+- name: Install utility packages
+  ansible.builtin.import_tasks: utils.yml
 
 - name: Configure Zsh
   ansible.builtin.import_tasks: zsh.yml
