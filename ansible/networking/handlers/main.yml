@@ -1,9 +1,10 @@
 #SPDX-License-Identifier: MIT-0
 ---
 # handlers file for networking
-- name: Apply Netplan
-  ansible.builtin.command: netplan apply
-  changed_when: true
+- name: Restart systemd-resolved
+  ansible.builtin.systemd:
+    name: systemd-resolved
+    state: restarted
 
 - name: Reload UFW
   ansible.builtin.command: ufw reload

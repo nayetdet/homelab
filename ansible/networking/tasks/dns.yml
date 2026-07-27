@@ -1,26 +1,27 @@
 ---
-- name: Set host DNS to upstream resolvers
+- name: Ensure systemd-resolved drop-in directory exists
+  ansible.builtin.file:
+    path: /etc/systemd/resolved.conf.d
+    state: directory
+    owner: root
+    group: root
+    mode: "0755"
+
+- name: Configure systemd-resolved to use the detected host IPv4
+  ansible.builtin.copy:
+    dest: /etc/systemd/resolved.conf.d/99-local-dns.conf
+    owner: root
+    group: root
+    mode: "0644"
+    content: |
+      [Resolve]
+      DNS={{ ansible_facts["default_ipv4"]["address"] }}
+      Domains=~.
+  notify: Restart systemd-resolved
+
+- name: Keep systemd-resolved resolv.conf as /etc/resolv.conf
   ansible.builtin.file:
     src: /run/systemd/resolve/resolv.conf
     dest: /etc/resolv.conf
     state: link
     force: true
-
-- name: Configure host DNS through Netplan
-  ansible.builtin.copy:
-    dest: /etc/netplan/99-local-dns.yaml
-    owner: root
-    group: root
-    mode: "0600"
-    content: |
-      network:
-        version: 2
-        ethernets:
-          {{ ansible_facts["default_ipv4"]["interface"] }}:
-            dhcp4: true
-            dhcp4-overrides:
-              use-dns: false
-            nameservers:
-              addresses:
-                - {{ ansible_facts["default_ipv4"]["address"] }}
-  notify: Apply Netplan
