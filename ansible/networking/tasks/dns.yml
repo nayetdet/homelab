@@ -1,24 +1,4 @@
 ---
-- name: Ensure systemd-resolved drop-in directory exists
-  ansible.builtin.file:
-    path: /etc/systemd/resolved.conf.d
-    state: directory
-    owner: root
-    group: root
-    mode: "0755"
-
-- name: Configure systemd-resolved to use the detected host IPv4
-  ansible.builtin.copy:
-    dest: /etc/systemd/resolved.conf.d/99-local-dns.conf
-    owner: root
-    group: root
-    mode: "0644"
-    content: |
-      [Resolve]
-      DNS={{ ansible_facts["default_ipv4"]["address"] }}
-      Domains=~.
-  notify: Restart systemd-resolved
-
 - name: Keep systemd-resolved resolv.conf as /etc/resolv.conf
   ansible.builtin.file:
     src: /run/systemd/resolve/resolv.conf
