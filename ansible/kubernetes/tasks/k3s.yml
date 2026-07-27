@@ -14,23 +14,11 @@
     group: root
     mode: "0755"
 
-- name: Configure an independent K3s upstream resolver
-  ansible.builtin.copy:
-    dest: /etc/rancher/k3s/upstream-resolv.conf
-    content: |
-      {% for dns_server in kubernetes_k3s_upstream_dns_servers %}
-      nameserver {{ dns_server }}
-      {% endfor %}
-    owner: root
-    group: root
-    mode: "0644"
-  notify: Restart K3s
-
 - name: Configure K3s resolver
   ansible.builtin.copy:
     dest: /etc/rancher/k3s/config.yaml
     content: |
-      resolv-conf: /etc/rancher/k3s/upstream-resolv.conf
+      resolv-conf: /run/systemd/resolve/resolv.conf
     owner: root
     group: root
     mode: "0644"

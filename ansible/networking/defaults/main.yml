@@ -3,6 +3,7 @@
 # defaults file for networking
 networking_internal_network: 192.168.0.0/24
 networking_upstream_dns_servers:
+  - "{{ ansible_facts['default_ipv4']['address'] }}"
   - 1.1.1.1
   - 1.0.0.1
 networking_ssh_port: 22
