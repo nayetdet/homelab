@@ -14,6 +14,10 @@
     url: https://packages.buildkite.com/helm-linux/helm-debian/gpgkey
     dest: /tmp/helm-apt-key.asc
     mode: "0644"
+  register: helm_key_download
+  retries: 5
+  delay: 10
+  until: helm_key_download is succeeded
 
 - name: Install Helm APT repository key
   ansible.builtin.command:

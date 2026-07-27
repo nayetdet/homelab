@@ -29,7 +29,7 @@
   args:
     creates: /usr/local/bin/k3s
   register: k3s_install
-  retries: 3
+  retries: 5
   delay: 10
   until: k3s_install.rc == 0
   notify: Restart K3s
