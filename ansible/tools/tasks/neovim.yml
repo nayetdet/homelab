@@ -17,6 +17,7 @@
     dest: "/home/{{ ansible_user }}/.config/nvim"
     version: main
     depth: 1
+    update: false
   become_user: "{{ ansible_user }}"
 
 - name: Configure Neovim line numbers

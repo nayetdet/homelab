@@ -1,0 +1,27 @@
+---
+- name: Create systemd-resolved drop-in directory
+  ansible.builtin.file:
+    path: /etc/systemd/resolved.conf.d
+    state: directory
+    owner: root
+    group: root
+    mode: "0755"
+
+- name: Configure independent upstream DNS for the host
+  ansible.builtin.copy:
+    dest: /etc/systemd/resolved.conf.d/99-upstream-dns.conf
+    owner: root
+    group: root
+    mode: "0644"
+    content: |
+      [Resolve]
+      DNS={{ networking_upstream_dns_servers | join(' ') }}
+      Domains=~.
+  notify: Restart systemd-resolved
+
+- name: Use systemd-resolved upstream file for host applications
+  ansible.builtin.file:
+    path: /etc/resolv.conf
+    state: link
+    src: /run/systemd/resolve/resolv.conf
+    force: true

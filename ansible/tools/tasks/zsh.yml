@@ -13,6 +13,7 @@
     dest: "/home/{{ ansible_user }}/.oh-my-zsh"
     version: master
     depth: 1
+    update: false
   become_user: "{{ ansible_user }}"
 
 - name: Customize the Zsh theme prompt color
