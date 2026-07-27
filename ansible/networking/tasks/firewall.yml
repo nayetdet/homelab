@@ -4,6 +4,7 @@
     name: ufw
     state: present
     update_cache: true
+    lock_timeout: 300
 
 - name: Disable IPv6 rules in UFW
   ansible.builtin.lineinfile:

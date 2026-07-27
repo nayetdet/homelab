@@ -8,6 +8,7 @@
       - python3-debian
     state: present
     update_cache: true
+    lock_timeout: 300
 
 - name: Download Helm APT repository key
   ansible.builtin.get_url:
@@ -41,3 +42,4 @@
     name: helm
     state: present
     update_cache: true
+    lock_timeout: 300

@@ -4,6 +4,7 @@
     name: fail2ban
     state: present
     update_cache: yes
+    lock_timeout: 300
 
 - name: Ensure Fail2ban Service Is Enabled and Running
   ansible.builtin.service:
