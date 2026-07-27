@@ -26,9 +26,11 @@
 
 - name: Install K3s Server and Worker
   ansible.builtin.shell: |
+    set -o pipefail
     curl -sfL https://get.k3s.io | sh -s - server --write-kubeconfig-mode 0644
   args:
     creates: /etc/systemd/system/k3s.service
+    executable: /bin/bash
   register: k3s_install
   retries: 5
   delay: 10
