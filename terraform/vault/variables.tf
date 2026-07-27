@@ -1,6 +1,6 @@
 variable "vault_address" {
   type    = string
-  default = "http://vault.home.arpa"
+  default = "https://vault.home.arpa"
 }
 
 variable "vault_token" {
@@ -22,4 +22,3 @@ variable "external_secrets_service_account" {
   type    = string
   default = "external-secrets"
 }
-
