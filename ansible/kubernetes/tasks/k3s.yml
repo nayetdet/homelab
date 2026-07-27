@@ -6,24 +6,6 @@
     update_cache: true
     lock_timeout: 300
 
-- name: Create K3s configuration directory
-  ansible.builtin.file:
-    path: /etc/rancher/k3s
-    state: directory
-    owner: root
-    group: root
-    mode: "0755"
-
-- name: Configure K3s resolver
-  ansible.builtin.copy:
-    dest: /etc/rancher/k3s/config.yaml
-    content: |
-      resolv-conf: /run/systemd/resolve/resolv.conf
-    owner: root
-    group: root
-    mode: "0644"
-  notify: Restart K3s
-
 - name: Install K3s server
   ansible.builtin.shell: |
     set -o pipefail
