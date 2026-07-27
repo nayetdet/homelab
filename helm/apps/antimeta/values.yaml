@@ -18,8 +18,22 @@ antimeta:
     ingress:
       main:
         enabled: true
+        ingressClassName: traefik
+        integrations:
+          certManager:
+            enabled: true
+            certificateIssuer: home-ca
+          traefik:
+            enabled: true
+            entrypoints:
+              - websecure
+            forceTLS: true
         hosts:
           - host: antimeta.home.arpa
             paths:
               - path: /
                 pathType: Prefix
+        tls:
+          - secretName: antimeta-tls
+            hosts:
+              - antimeta.home.arpa

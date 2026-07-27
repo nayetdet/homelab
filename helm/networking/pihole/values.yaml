@@ -31,5 +31,12 @@ pihole:
   ingress:
     enabled: true
     ingressClassName: traefik
+    annotations:
+      cert-manager.io/cluster-issuer: home-ca
+      traefik.ingress.kubernetes.io/router.entrypoints: websecure
     hosts:
       - pihole.home.arpa
+    tls:
+      - secretName: pihole-tls
+        hosts:
+          - pihole.home.arpa

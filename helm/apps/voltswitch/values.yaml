@@ -11,7 +11,15 @@ voltswitch-api:
 
   ingress:
     enabled: true
+    ingressClassName: traefik
+    annotations:
+      cert-manager.io/cluster-issuer: home-ca
+      traefik.ingress.kubernetes.io/router.entrypoints: websecure
     hosts:
       - host: voltswitch.home.arpa
         paths:
           - path: /
+    tls:
+      - secretName: voltswitch-tls
+        hosts:
+          - voltswitch.home.arpa
