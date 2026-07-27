@@ -1,4 +1,7 @@
 mirro-world:
+  config:
+    override: true
+
   secret:
     enabled: false
 
