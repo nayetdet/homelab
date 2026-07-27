@@ -1,0 +1,16 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: home-ca
+  namespace: {{ .Release.Namespace }}
+spec:
+  isCA: true
+  commonName: home.arpa
+  secretName: home-ca
+  privateKey:
+    algorithm: ECDSA
+    size: 256
+  issuerRef:
+    name: home-selfsigned
+    kind: ClusterIssuer
+    group: cert-manager.io
