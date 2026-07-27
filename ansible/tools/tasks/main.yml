@@ -7,6 +7,9 @@
 - name: Include Neovim Tasks
   ansible.builtin.import_tasks: neovim.yml
 
+- name: Include Terraform Tasks
+  ansible.builtin.import_tasks: terraform.yml
+
 - name: Include Tree Tasks
   ansible.builtin.import_tasks: tree.yml
 
