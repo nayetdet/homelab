@@ -9,6 +9,7 @@ antimeta:
       externalSecret:
         enabled: true
     registry:
+      name: garapatech-oci
       externalSecret:
         enabled: true
         storeName: vault-oci
