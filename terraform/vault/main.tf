@@ -29,10 +29,22 @@ resource "vault_mount" "kubernetes" {
   }
 }
 
+resource "vault_mount" "kubernetes_oci" {
+  path = "kubernetes-oci"
+  type = "kv"
+  options = {
+    version = "2"
+  }
+}
+
 resource "vault_policy" "external_secrets" {
   name   = "external-secrets"
   policy = <<-EOT
     path "kubernetes/data/*" {
+      capabilities = ["read"]
+    }
+
+    path "kubernetes-oci/data/*" {
       capabilities = ["read"]
     }
   EOT
