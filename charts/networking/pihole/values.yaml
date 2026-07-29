@@ -38,6 +38,7 @@ pihole:
       gethomepage.dev/name: Pi-hole
       gethomepage.dev/group: Networking
       gethomepage.dev/icon: pi-hole.png
+      gethomepage.dev/href: https://pihole.home.arpa/admin
     hosts:
       - pihole.home.arpa
     tls:
