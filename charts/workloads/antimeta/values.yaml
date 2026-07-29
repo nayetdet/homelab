@@ -30,7 +30,7 @@ antimeta:
         type: secret
         objectName: files-secret
         optional: true
-        mountPath: /data
+        mountPath: /data/resumes
         items:
           - key: resume_en_US.json
             path: resume_en_US.json
