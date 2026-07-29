@@ -10,6 +10,9 @@ argo-cd:
       hostname: argocd.home.arpa
       annotations:
         traefik.ingress.kubernetes.io/router.entrypoints: websecure
+        gethomepage.dev/enabled: "true"
+        gethomepage.dev/name: Argo CD
+        gethomepage.dev/icon: argocd.png
       tls: true
 
     certificate:

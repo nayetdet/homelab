@@ -37,6 +37,10 @@ antimeta:
             entrypoints:
               - websecure
             forceTLS: true
+        annotations:
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/name: Antimeta
+          gethomepage.dev/icon: mdi-robot
         hosts:
           - host: antimeta.home.arpa
             paths:

@@ -1,0 +1,35 @@
+homepage:
+  config:
+    allowedHosts:
+      - home.arpa
+
+  volumes:
+    - name: homepage-config
+      configMap:
+        name: homepage-config
+
+  volumeMounts:
+    - name: homepage-config
+      mountPath: /app/config/kubernetes.yaml
+      subPath: kubernetes.yaml
+      readOnly: true
+    - name: homepage-config
+      mountPath: /app/config/settings.yaml
+      subPath: settings.yaml
+      readOnly: true
+
+  ingress:
+    enabled: true
+    ingressClassName: traefik
+    annotations:
+      cert-manager.io/cluster-issuer: home-ca
+      traefik.ingress.kubernetes.io/router.entrypoints: websecure
+    hosts:
+      - host: home.arpa
+        paths:
+          - path: /
+            pathType: Prefix
+    tls:
+      - secretName: home-tls
+        hosts:
+          - home.arpa

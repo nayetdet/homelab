@@ -6,6 +6,9 @@ vault:
       annotations:
         cert-manager.io/cluster-issuer: home-ca
         traefik.ingress.kubernetes.io/router.entrypoints: websecure
+        gethomepage.dev/enabled: "true"
+        gethomepage.dev/name: Vault
+        gethomepage.dev/icon: vault.png
       hosts:
         - host: vault.home.arpa
           paths:
