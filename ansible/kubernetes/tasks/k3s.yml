@@ -19,6 +19,26 @@
   until: k3s_install.rc == 0
   notify: Restart K3s
 
+- name: Configure Traefik to redirect HTTP to HTTPS
+  ansible.builtin.copy:
+    dest: /var/lib/rancher/k3s/server/manifests/traefik-config.yaml
+    content: |
+      apiVersion: helm.cattle.io/v1
+      kind: HelmChartConfig
+      metadata:
+        name: traefik
+        namespace: kube-system
+      spec:
+        valuesContent: |-
+          additionalArguments:
+            - --entryPoints.web.http.redirections.entryPoint.to=websecure
+            - --entryPoints.web.http.redirections.entryPoint.scheme=https
+            - --entryPoints.web.http.redirections.entryPoint.permanent=true
+    owner: root
+    group: root
+    mode: "0600"
+  notify: Restart K3s
+
 - name: Enable and start K3s
   ansible.builtin.systemd:
     name: k3s
