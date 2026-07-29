@@ -14,3 +14,7 @@ data:
     headerStyle: clean
     statusStyle: dot
     hideVersion: true
+  services.yaml: |
+    []
+  bookmarks.yaml: |
+    []

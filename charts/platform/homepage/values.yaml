@@ -17,6 +17,14 @@ homepage:
       mountPath: /app/config/settings.yaml
       subPath: settings.yaml
       readOnly: true
+    - name: homepage-config
+      mountPath: /app/config/services.yaml
+      subPath: services.yaml
+      readOnly: true
+    - name: homepage-config
+      mountPath: /app/config/bookmarks.yaml
+      subPath: bookmarks.yaml
+      readOnly: true
 
   ingress:
     enabled: true
