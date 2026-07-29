@@ -24,29 +24,20 @@ antimeta:
     enabled: true
     auth:
       enabled: false
-    workload:
-      main:
-        podSpec:
-          containers:
-            main:
-              volumeMounts:
-                - name: antimeta-input-files
-                  mountPath: /data/resume_en_US.json
-                  subPath: resume_en_US.json
-                  readOnly: true
-                - name: antimeta-input-files
-                  mountPath: /data/resume_pt_BR.json
-                  subPath: resume_pt_BR.json
-                  readOnly: true
-          volumes:
-            - name: antimeta-input-files
-              secret:
-                secretName: files-secret
-                items:
-                  - key: resume_en_US.json
-                    path: resume_en_US.json
-                  - key: resume_pt_BR.json
-                    path: resume_pt_BR.json
+    persistence:
+      resume-files:
+        enabled: true
+        type: secret
+        objectName: files-secret
+        mountPath: /data
+        items:
+          - key: resume_en_US.json
+            path: resume_en_US.json
+          - key: resume_pt_BR.json
+            path: resume_pt_BR.json
+        targetSelector:
+          main:
+            main: {}
     ingress:
       main:
         enabled: true
