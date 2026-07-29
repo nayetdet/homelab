@@ -8,7 +8,7 @@ data:
     mode: cluster
     ingress: true
   settings.yaml: |
-    title: Homelab
+    title: Home
     theme: dark
     color: slate
     headerStyle: clean

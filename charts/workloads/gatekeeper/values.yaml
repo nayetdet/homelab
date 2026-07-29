@@ -27,7 +27,7 @@ gatekeeper:
           gethomepage.dev/enabled: "true"
           gethomepage.dev/name: Gatekeeper
           gethomepage.dev/group: Workloads
-          gethomepage.dev/icon: epic-games.svg
+          gethomepage.dev/icon: crafty-controller.svg
         hosts:
           - host: gatekeeper.home.arpa
             paths:

@@ -41,7 +41,7 @@ antimeta:
           gethomepage.dev/enabled: "true"
           gethomepage.dev/name: Antimeta
           gethomepage.dev/group: Workloads
-          gethomepage.dev/icon: boltnew.svg
+          gethomepage.dev/icon: mdi-bookmark
         hosts:
           - host: antimeta.home.arpa
             paths:
