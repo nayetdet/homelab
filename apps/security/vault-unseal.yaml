@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: cert-manager
+  name: vault-unseal
   namespace: argocd
   annotations:
     argocd.argoproj.io/sync-wave: "-1"
@@ -10,14 +10,13 @@ spec:
   source:
     repoURL: https://github.com/nayetdet/homelab.git
     targetRevision: main
-    path: charts/security/cert-manager
+    path: charts/security/vault-unseal
   destination:
     server: https://kubernetes.default.svc
-    namespace: cert-manager
+    namespace: vault
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
     syncOptions:
       - CreateNamespace=true
-      - ServerSideApply=true

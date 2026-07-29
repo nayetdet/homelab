@@ -1,0 +1,6 @@
+dependencies:
+- name: vault-unseal-cronjob
+  repository: https://charts.omegion.dev
+  version: 0.10.0
+digest: sha256:0fddf997970173c434e9a4312bdbd1d7c8bd2b7beb2881fb04091940ef11fa12
+generated: "2026-07-29T17:15:35.299439555-03:00"
