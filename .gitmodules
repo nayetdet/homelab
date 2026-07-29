@@ -1,0 +1,3 @@
+[submodule "charts/workloads/antimeta/submodules/resume"]
+	path = charts/workloads/antimeta/submodules/resume
+	url = https://github.com/nayetdet/resume.git
