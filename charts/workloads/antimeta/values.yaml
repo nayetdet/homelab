@@ -24,21 +24,6 @@ antimeta:
     enabled: true
     auth:
       enabled: false
-    persistence:
-      resume-files:
-        enabled: true
-        type: secret
-        objectName: files-secret
-        optional: true
-        mountPath: /data/resumes
-        items:
-          - key: resume_en_US.json
-            path: resume_en_US.json
-          - key: resume_pt_BR.json
-            path: resume_pt_BR.json
-        targetSelector:
-          main:
-            main: {}
     ingress:
       main:
         enabled: true
