@@ -29,6 +29,7 @@ antimeta:
         enabled: true
         type: secret
         objectName: files-secret
+        optional: true
         mountPath: /data
         items:
           - key: resume_en_US.json
