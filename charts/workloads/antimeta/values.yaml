@@ -40,7 +40,8 @@ antimeta:
         annotations:
           gethomepage.dev/enabled: "true"
           gethomepage.dev/name: Antimeta
-          gethomepage.dev/icon: mdi-robot
+          gethomepage.dev/group: Workloads
+          gethomepage.dev/icon: boltnew.svg
         hosts:
           - host: antimeta.home.arpa
             paths:

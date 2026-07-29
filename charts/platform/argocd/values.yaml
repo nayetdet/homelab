@@ -12,7 +12,8 @@ argo-cd:
         traefik.ingress.kubernetes.io/router.entrypoints: websecure
         gethomepage.dev/enabled: "true"
         gethomepage.dev/name: Argo CD
-        gethomepage.dev/icon: argocd.png
+        gethomepage.dev/group: Platform
+        gethomepage.dev/icon: argo-cd.svg
       tls: true
 
     certificate:

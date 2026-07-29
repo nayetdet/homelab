@@ -36,6 +36,7 @@ pihole:
       traefik.ingress.kubernetes.io/router.entrypoints: websecure
       gethomepage.dev/enabled: "true"
       gethomepage.dev/name: Pi-hole
+      gethomepage.dev/group: Networking
       gethomepage.dev/icon: pi-hole.png
     hosts:
       - pihole.home.arpa

@@ -17,7 +17,8 @@ voltswitch-api:
       traefik.ingress.kubernetes.io/router.entrypoints: websecure
       gethomepage.dev/enabled: "true"
       gethomepage.dev/name: Voltswitch
-      gethomepage.dev/icon: mdi-power
+      gethomepage.dev/group: Workloads
+      gethomepage.dev/icon: cyber-power-full.svg
     hosts:
       - host: voltswitch.home.arpa
         paths:

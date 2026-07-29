@@ -26,7 +26,8 @@ gatekeeper:
         annotations:
           gethomepage.dev/enabled: "true"
           gethomepage.dev/name: Gatekeeper
-          gethomepage.dev/icon: mdi-controller
+          gethomepage.dev/group: Workloads
+          gethomepage.dev/icon: epic-games.svg
         hosts:
           - host: gatekeeper.home.arpa
             paths:
