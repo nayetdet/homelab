@@ -18,7 +18,7 @@ voltswitch-api:
       gethomepage.dev/enabled: "true"
       gethomepage.dev/name: Voltswitch
       gethomepage.dev/group: Workloads
-      gethomepage.dev/icon: cyber-power-full.svg
+      gethomepage.dev/icon: mdi-power
     hosts:
       - host: voltswitch.home.arpa
         paths:
