@@ -1,5 +1,5 @@
 voltswitch-api:
-  shutdownCommand: 'ssh root@192.168.0.200 "shutdown -h now"'
+  shutdownCommand: 'ssh root@192.168.0.101 "shutdown -h now"'
 
   secret:
     enabled: false
