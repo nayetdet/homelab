@@ -1,0 +1,20 @@
+---
+- name: Install Tailscale prerequisites
+  ansible.builtin.apt:
+    name:
+      - ca-certificates
+      - curl
+    state: present
+    update_cache: true
+    lock_timeout: 300
+
+- name: Install Tailscale
+  ansible.builtin.shell:
+    cmd: curl -fsSL https://tailscale.com/install.sh | sh
+    creates: /usr/bin/tailscale
+
+- name: Enable and start Tailscale daemon
+  ansible.builtin.systemd_service:
+    name: tailscaled
+    state: started
+    enabled: true

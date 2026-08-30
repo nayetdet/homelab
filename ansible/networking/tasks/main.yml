@@ -12,3 +12,6 @@
 
 - name: Include Firewall Tasks
   ansible.builtin.import_tasks: firewall.yml
+
+- name: Include Forwarding tasks
+  ansible.builtin.import_tasks: forwarding.yml

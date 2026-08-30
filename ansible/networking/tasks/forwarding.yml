@@ -1,0 +1,50 @@
+---
+- name: Persist and enable IPv4 forwarding
+  ansible.posix.sysctl:
+    name: net.ipv4.ip_forward
+    value: "1"
+    state: present
+    sysctl_file: /etc/sysctl.d/99-ip-forwarding.conf
+    reload: true
+
+- name: Persist and enable IPv6 forwarding
+  ansible.posix.sysctl:
+    name: net.ipv6.conf.all.forwarding
+    value: "1"
+    state: present
+    sysctl_file: /etc/sysctl.d/99-ip-forwarding.conf
+    reload: true
+
+- name: Install ethtool for Tailscale UDP GRO forwarding
+  ansible.builtin.apt:
+    name: ethtool
+    state: present
+    update_cache: true
+    lock_timeout: 300
+
+- name: Configure UDP GRO forwarding service for Tailscale
+  ansible.builtin.copy:
+    dest: /etc/systemd/system/tailscale-gro-forwarding.service
+    owner: root
+    group: root
+    mode: "0644"
+    content: |
+      [Unit]
+      Description=Enable UDP GRO forwarding for Tailscale
+      Wants=network-online.target
+      After=network-online.target
+
+      [Service]
+      Type=oneshot
+      ExecStart=/usr/sbin/ethtool -K {{ ansible_facts["default_ipv4"]["interface"] }} rx-udp-gro-forwarding on rx-gro-list off
+      RemainAfterExit=yes
+
+      [Install]
+      WantedBy=multi-user.target
+
+- name: Enable and start UDP GRO forwarding service
+  ansible.builtin.systemd_service:
+    name: tailscale-gro-forwarding.service
+    daemon_reload: true
+    state: started
+    enabled: true

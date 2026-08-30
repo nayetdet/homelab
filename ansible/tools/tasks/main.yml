@@ -10,6 +10,9 @@
 - name: Install Terraform
   ansible.builtin.import_tasks: terraform.yml
 
+- name: Install Tailscale
+  ansible.builtin.import_tasks: tailscale.yml
+
 - name: Install utility packages
   ansible.builtin.import_tasks: utils.yml
 
