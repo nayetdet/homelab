@@ -53,6 +53,7 @@
     create: true
     marker: "# {mark} ANSIBLE MANAGED OH-MY-ZSH"
     content: |
+      export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin${PATH:+:$PATH}"
       export ZSH="/home/{{ ansible_user }}/.oh-my-zsh"
       ZSH_THEME="{{ tools_zsh_theme }}"
       zstyle ':omz:update' mode auto
