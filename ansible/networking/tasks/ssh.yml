@@ -12,7 +12,7 @@
     group: root
     mode: "0644"
     content: |
-      PasswordAuthentication no
+      PasswordAuthentication yes
       PermitRootLogin no
       PubkeyAuthentication yes
       X11Forwarding no
