@@ -1,4 +1,17 @@
 ---
+- name: Install systemd-resolved
+  ansible.builtin.apt:
+    name: systemd-resolved
+    state: present
+    update_cache: false
+    lock_timeout: 300
+
+- name: Enable and start systemd-resolved
+  ansible.builtin.systemd_service:
+    name: systemd-resolved
+    state: started
+    enabled: true
+
 - name: Create systemd-resolved drop-in directory
   ansible.builtin.file:
     path: /etc/systemd/resolved.conf.d
